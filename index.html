@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>9 Meses Juntos 💘</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: radial-gradient(ellipse at center, #1a0533 0%, #05010d 60%, #000000 100%);
+            min-height: 100vh;
+            overflow: hidden;
+            font-family: 'Georgia', serif;
+            touch-action: none;
+        }
+
+        .galaxy-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            transition: transform 0.05s ease-out;
+        }
+
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite alternate;
+        }
+        @keyframes twinkle {
+            0% { opacity: 0.2; }
+            100% { opacity: 1; }
+        }
+
+        .heart-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 220px;
+            height: 200px;
+            z-index: 10;
+            filter: drop-shadow(0 0 40px #ff69b4) drop-shadow(0 0 70px #ff1493);
+        }
+        .photo-grid {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -45%);
+            width: 170px;
+            height: 155px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 3px;
+            clip-path: path('M85,15 C65,-5 15,5 15,55 C15,100 85,145 85,145 C85,145 155,100 155,55 C155,5 105,-5 85,15 Z');
+            overflow: hidden;
+        }
+        .photo-grid img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .orbit-wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform-origin: center center;
+            animation: orbit linear infinite;
+        }
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px currentColor, inset -5px -5px 15px rgba(0,0,0,0.4);
+            transform: translate(-50%, -50%);
+        }
+        .planet-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform-origin: center center;
+            color: #fff;
+            font-size: 11px;
+            font-weight: bold;
+            text-shadow: 0 0 6px rgba(0,0,0,0.9);
+            white-space: nowrap;
+        }
+        @keyframes orbit {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* ✨ Frases como ESTRELLAS FUGACES */
+        .shooting-star {
+            position: absolute;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 500;
+            text-shadow: 0 0 8px rgba(255,182,193,0.9), 0 0 15px rgba(255,105,180,0.5);
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+        }
+        @keyframes shootDiagonal {
+            0% { transform: translate(-100px, -50px); rotate(15deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translate(calc(100vw + 200px), calc(60vh + 100px)); rotate(15deg); opacity: 0; }
+        }
+        @keyframes shootReverse {
+            0% { transform: translate(calc(100vw + 100px), -50px); rotate(-15deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translate(-200px, calc(70vh + 100px)); rotate(-15deg); opacity: 0; }
+        }
+        @keyframes shootUp {
+            0% { transform: translate(0, 100vh); opacity: 0; }
+            15% { opacity: 1; }
+            85% { opacity: 1; }
+            100% { transform: translate(40px, -150px); opacity: 0; }
+        }
+        @keyframes shootAcross {
+            0% { transform: translate(-150px, 0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translate(calc(100vw + 150px), 0); opacity: 0; }
+        }
+
+        .main-message {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ffd7ec;
+            font-size: 16px;
+            text-align: center;
+            padding: 15px 20px;
+            background: rgba(26, 5, 51, 0.8);
+            border-radius: 20px;
+            border: 2px solid #ff69b4;
+            box-shadow: 0 0 30px rgba(255,105,180,0.4);
+            z-index: 100;
+            max-width: 95%;
+            line-height: 1.5;
+        }
+
+        .instructions {
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #dda0dd;
+            font-size: 12px;
+            background: rgba(0,0,0,0.6);
+            padding: 6px 15px;
+            border-radius: 20px;
+            z-index: 100;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="instructions">🤏 Pellizca para hacer zoom ✨ Desliza para moverte 💫</div>
+
+<div class="galaxy-container" id="galaxy">
+    <div class="stars" id="stars"></div>
+
+    <div class="heart-center">
+        <div class="photo-grid">
+            <img src="1.jpg" alt="Nosotros">
+            <img src="2.jpg" alt="Nosotros">
+            <img src="3.jpg" alt="Nosotros">
+            <img src="4.jpg" alt="Nosotros">
+            <img src="5.jpg" alt="Nosotros">
+            <img src="6.jpg" alt="Nosotros">
+            <img src="7.jpg" alt="Nosotros">
+            <img src="8.jpg" alt="Nosotros">
+            <img src="9.jpg" alt="Nosotros">
+        </div>
+    </div>
+
+    <!-- 🪐 9 Planetas con cada mes -->
+    <div class="orbit-wrapper" style="width:200px; height:200px; margin-left:-100px; margin-top:-100px; animation-duration:8s;">
+        <div class="planet" style="left:100%; top:50%; width:26px; height:26px; background:#ff6b9d; color:#ff6b9d;"></div>
+        <div class="planet-text" style="left:calc(100% + 22px); top:50%; transform:translateY(-50%) rotate(0deg);">🌸 Marzo</div>
+    </div>
+    <div class="orbit-wrapper" style="width:280px; height:280px; margin-left:-140px; margin-top:-140px; animation-duration:11s;">
+        <div class="planet" style="left:100%; top:50%; width:20px; height:20px; background:#9370db; color:#9370db;"></div>
+        <div class="planet-text" style="left:calc(100% + 18px); top:50%; transform:translateY(-50%) rotate(0deg);">🌷 Abril</div>
+    </div>
+    <div class="orbit-wrapper" style="width:360px; height:360px; margin-left:-180px; margin-top:-180px; animation-duration:14s;">
+        <div class="planet" style="left:100%; top:50%; width:32px; height:32px; background:#4ecdc4; color:#4ecdc4;"></div>
+        <div class="planet-text" style="left:calc(100% + 26px); top:50%; transform:translateY(-50%) rotate(0deg);">🌻 Mayo</div>
+    </div>
+    <div class="orbit-wrapper" style="width:450px; height:450px; margin-left:-225px; margin-top:-225px; animation-duration:18s;">
+        <div class="planet" style="left:100%; top:50%; width:24px; height:24px; background:#ffb347; color:#ffb347;"></div>
+        <div class="planet-text" style="left:calc(100% + 20px); top:50%; transform:translateY(-50%) rotate(0deg);">☀️ Junio</div>
+    </div>
+    <div class="orbit-wrapper" style="width:540px; height:540px; margin-left:-270px; margin-top:-270px; animation-duration:22s;">
+        <div class="planet" style="left:100%; top:50%; width:28px; height:28px; background:#a29bfe; color:#a29bfe;"></div>
+        <div class="planet-text" style="left:calc(100% + 24px); top:50%; transform:translateY(-50%) rotate(0deg);">🌊 Julio</div>
+    </div>
+    <div class="orbit-wrapper" style="width:630px; height:630px; margin-left:-315px; margin-top:-315px; animation-duration:26s;">
+        <div class="planet" style="left:100%; top:50%; width:18px; height:18px; background:#fd79a8; color:#fd79a8;"></div>
+        <div class="planet-text" style="left:calc(100% + 15px); top:50%; transform:translateY(-50%) rotate(0deg);">🦋 Agosto</div>
+    </div>
+    <div class="orbit-wrapper" style="width:720px; height:720px; margin-left:-360px; margin-top:-360px; animation-duration:30s;">
+        <div class="planet" style="left:100%; top:50%; width:34px; height:34px; background:#55efc4; color:#55efc4;"></div>
+        <div class="planet-text" style="left:calc(100% + 28px); top:50%; transform:translateY(-50%) rotate(0deg);">🍂 Septiembre</div>
+    </div>
+    <div class="orbit-wrapper" style="width:810px; height:810px; margin-left:-405px; margin-top:-405px; animation-duration:34s;">
+        <div class="planet" style="left:100%; top:50%; width:22px; height:22px; background:#ffeaa7; color:#ffeaa7;"></div>
+        <div class="planet-text" style="left:calc(100% + 19px); top:50%; transform:translateY(-50%) rotate(0deg);">🎃 Octubre</div>
+    </div>
+    <div class="orbit-wrapper" style="width:900px; height:900px; margin-left:-450px; margin-top:-450px; animation-duration:38s;">
+        <div class="planet" style="left:100%; top:50%; width:30px; height:30px; background:#74b9ff; color:#74b9ff;"></div>
+        <div class="planet-text" style="left:calc(100% + 25px); top:50%; transform:translateY(-50%) rotate(0deg);">🍁 Noviembre</div>
+    </div>
+</div>
+
+<div class="main-message">
+    💖 Feliz aniversario de 9 meses amor, cada mes me doy cuenta que te amo y que solo te deseo a ti 💘💞
+</div>
+
+<script>
+    const starsContainer = document.getElementById('stars');
+    for(let i = 0; i < 400; i++){
+        const star = document.createElement('div');
+        star.classList.add('star');
+        const size = Math.random() * 3 + 1;
+        star.style.width = star.style.height = size + 'px';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDelay = Math.random() * 3 + 's';
+        starsContainer.appendChild(star);
+    }
+
+    const frases = [
+        "Niña primavera 💘 — iluminas mis días 🌸",
+        "Panquesita 💓 — dulce como el azúcar 🥞",
+        "Mi pedacito de cielo ☁️ — eres mi paz ✨",
+        "Mi persona favorita 🌍 — el mundo es mejor contigo 💞",
+        "Princesa de mis sueños 👑 — siempre para ti 💍",
+        "Mi hogar 🏡 — donde estés tú, estoy yo ❤️",
+        "Mi sonrisa diaria 😊 — gracias por existir 🌻",
+        "Corazoncito mío 💗 — cuido de ti siempre 🤗",
+        "Mi todo 🌌 — sin ti nada tiene sentido 💫",
+        "Mariposita mía 🦋 — vuelas alto en mi corazón 💖",
+        "Luz de mis ojos ✨ — brillas más que las estrellas 🌙",
+        "Mi amor eterno ♾️ — no hay fin para nosotros 💑"
+    ];
+
+    const animaciones = ['shootDiagonal', 'shootReverse', 'shootUp', 'shootAcross'];
+
+    function crearEstrellaFugaz(){
+        const texto = frases[Math.floor(Math.random() * frases.length)];
+        const anim = animaciones[Math.floor(Math.random() * animaciones.length)];
+        const duracion = (Math.random() * 6 + 5) + 's';
+        const retraso = Math.random() * 3 + 's';
+        const inicioY = Math.random() * 70 + 15 + '%';
+
+        const estrella = document.createElement('div');
+        estrella.classList.add('shooting-star');
+        estrella.textContent = texto;
+        estrella.style.top = inicioY;
+        estrella.style.left = '0';
+        estrella.style.animation = `${anim} ${duracion} ease-in forwards`;
+        estrella.style.animationDelay = retraso;
+
+        document.body.appendChild(estrella);
+        const tiempoTotal = (parseFloat(duracion) + parseFloat(retraso)) * 1000 + 2000;
+        setTimeout(() => estrella.remove(), tiempoTotal);
+    }
+
+    setInterval(crearEstrellaFugaz, 2500);
+    for(let i=0; i<5; i++) setTimeout(crearEstrellaFugaz, i*600);
+
+    const galaxy = document.getElementById('galaxy');
+    let escala = 1;
+    let posX = 0, posY = 0;
+    let ultimoToque = null;
+    let distanciaInicial = null;
+
+    function actualizarGalaxia(){
+        galaxy.style.transform = `translate(calc(-50% + ${posX}px), calc(-50% + ${posY}px)) scale(${escala})`;
+    }
+
+    function obtenerDistancia(toques){
+        const dx = toques[1].clientX - toques[0].clientX;
+        const dy = toques[1].clientY - toques[0].clientY;
+        return Math.sqrt(dx*dx + dy*dy);
+    }
+
+    document.addEventListener('touchstart', e => {
+        if(e.touches.length === 1){
+            ultimoToque = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        } else if(e.touches.length === 2){
+            distanciaInicial = obtenerDistancia(e.touches);
+            ultimoToque = null;
+        }
+    }, { passive: true });
+
+    document.addEventListener('touchmove', e => {
+        e.preventDefault();
+        if(e.touches.length === 1 && ultimoToque){
+            posX += e.touches[0].clientX - ultimoToque.x;
+            posY += e.touches[0].clientY - ultimoToque.y;
+            ultimoToque = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            actualizarGalaxia();
+        } else if(e.touches.length === 2){
+            const distanciaActual = obtenerDistancia(e.touches);
+            if(distanciaInicial){
+                const factor = distanciaActual / distanciaInicial;
+                escala *= factor;
+                escala = Math.min(Math.max(0.4, escala), 4);
+                distanciaInicial = distanciaActual;
+                actualizarGalaxia();
+            }
+        }
+    }, { passive: false });
+
+    document.addEventListener('touchend', () => {
+        ultimoToque = null;
+        distanciaInicial = null;
+    }, { passive: true });
+</script>
+
+</body>
+</html>
+
